@@ -71,7 +71,7 @@ internal class KspToCodeGenNavGraphsMapper(
         val navGraphAnnotationNameArg = navGraphAnnotation
             .findArgumentValue<String>(DESTINATION_ANNOTATION_ROUTE_ARGUMENT)
         val navGraphVisibility = navGraphAnnotation
-            .findArgumentValue<KSType>("visibility")!!
+            .findArgumentValue<Any>("visibility")!!
             .toGenVisibility()
         val navGraphDefaultTransitions = navGraphAnnotation
             .findArgumentValue<KSType>("defaultTransitions")

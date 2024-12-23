@@ -249,7 +249,14 @@ fun KSValueParameter.toParameter(
     )
 }
 
-fun KSType.toGenVisibility(): Visibility {
+fun Any.toGenVisibility(): Visibility {
+    // Enum entries in annotation arguments are evaluated as KSClassDeclaration instead of KSType in KSP2
+    // https://github.com/google/ksp/blob/main/docs/ksp2api.md#evaluation-of-enum-entries-in-annotation-arguments
+    val declaration = when (this) {
+        is KSType -> declaration
+        is KSClassDeclaration -> this
+        else -> error("Unexpected type for 'visibility' param $this")
+    }
     return when (val visibility = declaration.simpleName.asString()) {
         "PUBLIC" -> Visibility.PUBLIC
         "INTERNAL" -> Visibility.INTERNAL

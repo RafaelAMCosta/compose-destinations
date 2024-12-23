@@ -204,7 +204,7 @@ internal class KspToCodeGenDestinationsMapper(
     }
 
     private fun KSAnnotation.getDestinationVisibility(): Visibility? {
-        return findArgumentValue<KSType>("visibility")?.toGenVisibility()
+        return findArgumentValue<Any>("visibility")?.toGenVisibility()
     }
 
     private val activityType by lazy {
